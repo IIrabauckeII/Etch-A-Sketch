@@ -3,7 +3,10 @@ const containerDiv = document.getElementById('container');
 const btnClear = document.getElementById('btnClear');
 const btnNewGrid = document.getElementById('btnNewGrid');
 const btnPickColor = document.getElementById('btnPickColor');
+const inputPickColor = document.getElementById('inputPickColor');
 const btnRandomColor = document.getElementById('btnRandomColor');
+let hoverColor = '#FFFFFF';
+let randomizeColors = false;
 
 
 // function setup: create Divs
@@ -29,8 +32,13 @@ createDivs(16);
 
 // eventListener hover
 const colorChildDivOnHover = (event) => {
+  if (event.target.className == "subDiv" && randomizeColors == true) {
+    let randomColor = Math.floor(Math.random()*16777215).toString(16);
+    event.target.style['background-color'] = '#' + randomColor;
+    return
+  }
   if (event.target.className == "subDiv") {
-  event.target.style['background-color'] = '#FFFFFF';
+  event.target.style['background-color'] = hoverColor;
   }
 };
 
@@ -60,9 +68,26 @@ const rowNrInput = () => {
 
 btnNewGrid.addEventListener('click', rowNrInput);
 
-//eventListener Pick a Color
-const chooseColor = () => {
-  
+//eventListener open color picker
+const openColorPicker = () => {
+  inputPickColor.click();
 }
 
-btnPickColor.addEventListener('click', chooseColor)
+btnPickColor.addEventListener('click', openColorPicker)
+
+
+//eventListener change color through color picker
+const changeColor = () => {
+  hoverColor = inputPickColor.value;
+  randomizeColors = false;
+}
+
+inputPickColor.addEventListener('change', changeColor)
+
+
+//eventListener randomize Colors
+const randomizeColorOnHover = () => {
+  randomizeColors = true;
+}
+
+btnRandomColor.addEventListener('click', randomizeColorOnHover)
