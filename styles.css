@@ -41,6 +41,10 @@ h1 {
   border: solid 1px white;
 }
 
+#container>div:hover {
+  cursor: crosshair;
+}
+
 #buttonsDiv {
   display: flex;
   flex-direction: column;
